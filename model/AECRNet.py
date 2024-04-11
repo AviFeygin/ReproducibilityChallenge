@@ -67,7 +67,7 @@ class AECRNet(nn.Module):
         x_up1 = self.relu(x_up1)
         x_mix2 = self.mix2(x_down2, x_up1)
         x_up2 = self.up2(x_mix2)
-        x_up2 = self.relu(x_up1)
+        x_up2 = self.relu(x_up2)
         x_up3 = self.pad(x_up2)
         x_up3 = self.up3(x_up3)
 
