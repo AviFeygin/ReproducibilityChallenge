@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
+aecr_model_logs/
 dataset/*
 # C extensions
 *.so
