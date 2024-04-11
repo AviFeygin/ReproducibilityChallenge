@@ -7,9 +7,9 @@ from PIL import Image
 from torchvision.transforms import functional as FF
 
 crop_size = 240
-bs = 16
 
 
+# Copied from https://www.kaggle.com/code/balraj98/ffa-net-for-single-image-dehazing-pytorch
 class RESIDE_Dataset(data.Dataset):
     def __init__(self, path, train, size=crop_size, format='.png'):
         super(RESIDE_Dataset, self).__init__()
