@@ -19,6 +19,8 @@ class AECRNet(nn.Module):
 
         # Need some padding for this model to work
         self.pad = nn.ReflectionPad2d(3)
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
 
         # Down-sampling layers
         self.down1 = nn.Conv2d(input_channels, dim, kernel_size=7, stride=1, padding=0)
@@ -44,8 +46,11 @@ class AECRNet(nn.Module):
         x = self.pad(x)
 
         x_down1 = self.down1(x)
+        x_down1 = self.relu(x_down1)
         x_down2 = self.down2(x_down1)
+        x_down2 = self.relu(x_down2)
         x_down3 = self.down3(x_down2)
+        x_down3 = self.relu(x_down3)
 
         x1 = self.fa_block(x_down3)
         x2 = self.fa_block(x1)
@@ -59,10 +64,12 @@ class AECRNet(nn.Module):
 
         x_mix1 = self.mix1(x_down3, x_dcn2)
         x_up1 = self.up1(x_mix1)
+        x_up1 = self.relu(x_up1)
         x_mix2 = self.mix2(x_down2, x_up1)
         x_up2 = self.up2(x_mix2)
-
+        x_up2 = self.relu(x_up1)
         x_up3 = self.pad(x_up2)
+        x_up3 = self.up3(x_up3)
 
-        out = self.up3(x_up3)
+        out = self.sigmoid(x_up3)
         return out
