@@ -64,23 +64,23 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, criterion):
                 f'loss:{loss.item():.5f} | l1:{loss_l1:.5f} | cr: {loss_cr:.5f} | '
                 f'time_elapsed :{(time.time() - start_time) / 60 :.1f}'
             )
-            if epoch % eval_epoch == 0:
-                ssim_eval, psnr_eval = test(model, test_dataloader)
-                print(f'epoch: {epoch} | ssim: {ssim_eval:.4f}| psnr: {psnr_eval:.4f}')
+        if epoch % eval_epoch == 0:
+            ssim_eval, psnr_eval = test(model, test_dataloader)
+            print(f'epoch: {epoch} | ssim: {ssim_eval:.4f}| psnr: {psnr_eval:.4f}')
 
-                max_ssim = max(max_ssim, ssim_eval)
-                max_psnr = max(max_psnr, psnr_eval)
+            max_ssim = max(max_ssim, ssim_eval)
+            max_psnr = max(max_psnr, psnr_eval)
 
-                torch.save({
-                    'epoch': epoch,
-                    'ssims': ssims,
-                    'psnrs': psnrs,
-                    'max_psnr': max_psnr,
-                    'max_ssim': max_ssim,
-                    'losses': losses,
-                    'model': model.state_dict(),
-                    'optimizer': optimizer.state_dict()
-                }, model_path)
+            torch.save({
+                'epoch': epoch,
+                'ssims': ssims,
+                'psnrs': psnrs,
+                'max_psnr': max_psnr,
+                'max_ssim': max_ssim,
+                'losses': losses,
+                'model': model.state_dict(),
+                'optimizer': optimizer.state_dict()
+            }, model_path)
     print("Done training")
 
 
