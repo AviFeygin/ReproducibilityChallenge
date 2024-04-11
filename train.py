@@ -40,7 +40,7 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, criterion):
     else:
         print('Training from scratch')
 
-    for epoch in range(start_epoch + 1, 1):
+    for epoch in range(start_epoch + 1, epochs):
         model.train()
         for image, label in tqdm(train_dataloader):
             image = image.to(device)
