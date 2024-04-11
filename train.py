@@ -81,8 +81,6 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, criterion):
                     'model': model.state_dict(),
                     'optimizer': optimizer.state_dict()
                 }, model_path)
-            break
-        break
     print("Done training")
 
 
@@ -100,7 +98,6 @@ def test(model, test_dataloader):
             psnr_eval = psnr(pred, targets)
             ssims.append(ssim_eval)
             psnrs.append(psnr_eval)
-        break
 
     return np.mean(ssims), np.mean(psnrs)
 
