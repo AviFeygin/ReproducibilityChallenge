@@ -44,13 +44,9 @@ class PALayer(nn.Module):
         return x * y
 
 
-def default_conv(in_channels, out_channels, kernel_size, bias=True):
-    return nn.Conv2d(in_channels, out_channels, kernel_size, padding=(kernel_size // 2), bias=bias)
-
-
-class FABlock(nn.Module):
+class FeatureAttentionBlock(nn.Module):
     def __init__(self, conv, dim, ker_size):
-        super(FABlock, self).__init__()
+        super(FeatureAttentionBlock, self).__init__()
         self.convolution_1 = conv(dim, dim, ker_size, bias=True)
         self.relu_1 = nn.ReLU()
         self.convolution_2 = conv(dim, dim, ker_size, bias=True)

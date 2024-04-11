@@ -2,9 +2,9 @@ import torch
 from torch import nn
 
 
-class Mix(nn.Module):
+class Mixup(nn.Module):
     def __init__(self, m):
-        super(Mix, self).__init__()
+        super(Mixup, self).__init__()
         # Initialize the learnable parameter 'w' with the initial value 'm'
         self.weight = torch.nn.Parameter(torch.FloatTensor([m]), requires_grad=True)
         # Define a sigmoid activation block
