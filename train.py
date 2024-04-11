@@ -126,8 +126,8 @@ if __name__ == '__main__':
     train_dataloader = dataloaders[dataset]['train']
     test_dataloader = dataloaders[dataset]['test']
 
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    device = torch.device('cpu')  # because my gpu doesnt have enough memory ;(
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cpu')  # because my gpu doesnt have enough memory ;(
     learning_rate = 0.0001
     models = {'AECR_Net': AECRNet(3, 3)}
     network = 'AECR_Net'
