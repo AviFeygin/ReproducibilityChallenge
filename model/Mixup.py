@@ -3,11 +3,10 @@ from torch import nn
 
 
 class Mixup(nn.Module):
-    def __init__(self, m):
+    def __init__(self, learnable_factor):
         super(Mixup, self).__init__()
-        # Initialize the learnable parameter 'weight' with the initial value 'm'
-        weight = torch.nn.Parameter(torch.FloatTensor([m]), requires_grad=True)
-        self.weight = torch.nn.Parameter(weight, requires_grad=True)
+        # Initialize the learnable parameter 'weight' with the initial value 'learnable_factor'
+        self.weight = torch.nn.Parameter(torch.FloatTensor([learnable_factor]), requires_grad=True)
         # Define a sigmoid activation block
         self.sigmoid = nn.Sigmoid()
 
@@ -19,3 +18,5 @@ class Mixup(nn.Module):
         # and compute the mixed output
         out = feature1 * mix_factor.expand_as(feature1) + feature2 * (1 - mix_factor.expand_as(feature2))
         return out
+
+

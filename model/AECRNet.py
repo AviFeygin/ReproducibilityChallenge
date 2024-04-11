@@ -25,18 +25,20 @@ class AECRNet(nn.Module):
         self.down2 = nn.Conv2d(dim, dim * 2, kernel_size=3, stride=2, padding=1)
         self.down3 = nn.Conv2d(dim * 2, dim * 4, kernel_size=3, stride=2, padding=1)
 
-        # Feature Attention blocks
+        # Feature Attention block
         self.fa_block = FeatureAttentionBlock(default_conv, dim * 4, 3)
+
+        # Dynamic Feature Enhancement Block
+        self.dfe_block = DeformableConv2d(dim * 4, dim * 4)
+
+        # Mixup operations
+        self.mix1 = Mixup(learnable_factor=-random.random())
+        self.mix2 = Mixup(learnable_factor=-random.random())
 
         # Up-sampling layers
         self.up1 = nn.ConvTranspose2d(dim * 4, dim * 2, kernel_size=3, stride=2, padding=1, output_padding=1)
         self.up2 = nn.ConvTranspose2d(dim * 2, dim, kernel_size=3, stride=2, padding=1, output_padding=1)
         self.up3 = nn.Conv2d(dim, output_channels, kernel_size=7, padding=0)
-
-        self.dfe_block = DeformableConv2d(dim * 4, dim * 4)
-
-        self.mix1 = Mixup(m=-random.random())
-        self.mix2 = Mixup(m=-random.random())
 
     def forward(self, x):
         x = self.pad(x)
